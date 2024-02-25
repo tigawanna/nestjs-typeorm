@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { PostModule } from './post/post.module';
 
 @Module({
-  imports: [DatabaseModule,ConfigModule.forRoot({isGlobal:true})],
+  imports: [DatabaseModule,ConfigModule.forRoot({isGlobal:true}), PostModule],
   controllers: [AppController],
   providers: [AppService],
 })

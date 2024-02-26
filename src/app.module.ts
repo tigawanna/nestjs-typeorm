@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
+
 import { ConfigModule } from '@nestjs/config';
-import { PostModule } from './post/post.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [DatabaseModule,ConfigModule.forRoot({isGlobal:true}), PostModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }),DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { typeorm_sqlite_config } from './typeorm.config';
+import { typeorm_sqlite_config } from './typeorm/typeorm.config';
 
 export const databaseProviders = [
   {

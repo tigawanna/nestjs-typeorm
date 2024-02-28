@@ -1,0 +1,20 @@
+meta {
+  name: delete user
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:5000/users/ef2d4bcd-c616-41b9-acd0-48735b629e0d
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id":"ef2d4bcd-c616-41b9-acd0-48735b629e0d",
+    "username":"oy boy",
+    "email":"boy0@email.com",
+    "password":"123"
+  }
+}

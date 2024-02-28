@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseFilters } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { TypeORMUserUniqueConstraintExceptionFilter } from './exceptions/TypeORMUserUniqueConstraintExceptionFilter';
+
 
 @Controller('users')
+@UseFilters(TypeORMUserUniqueConstraintExceptionFilter)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -18,12 +21,12 @@ export class UsersController {
   }
 
   @Get(':id')
- async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return await this.usersService.findOne(id);
   }
 
   @Patch(':id')
- async  update(
+  async update(
     @Param('id') id: string,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ) {

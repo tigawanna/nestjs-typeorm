@@ -6,8 +6,9 @@ import { TypeOrmConfigModule } from './database/typeorm/typeorm.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
+
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), TypeOrmConfigModule, UsersModule, AuthModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), TypeOrmConfigModule, UsersModule,AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

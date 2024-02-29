@@ -12,19 +12,29 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async validateUser({ usernameOrEmail, password }: SignInDto) {
+    const user = await this.userService.findByEmailOrUsernae(usernameOrEmail);
+    if (!user) {
+      return null;
+    }
+    if (await bcrypt.compare(password, user.password)) {
+      const { password, ...result } = user;
+      return result;
+    }
+  }
   async signupUser(user: CreateUserDto) {
     const hash = await bcrypt.hash(user.password, 10);
     user.password = hash;
     await this.userService.create(user);
-      const { password, ...result } = user;
-      const payload = {
-        email: result.email,
-        sub: {
-          id: result.id,
-          username: result.username,
-          isActive: result.isActive,
-        },
-      };
+    const { password, ...result } = user;
+    const payload = {
+      email: result.email,
+      sub: {
+        id: result.id,
+        username: result.username,
+        isActive: result.isActive,
+      },
+    };
     return {
       ...user,
       access_token: await this.jwtService.signAsync(payload),
@@ -43,7 +53,6 @@ export class AuthService {
           id: result.id,
           username: result.username,
           isActive: result.isActive,
-
         },
       };
       return {

@@ -14,7 +14,6 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const user = await this.userRepository.create(createUserDto);
     return await this.userRepository.save(user);
-
   }
 
   async findAll() {
@@ -24,11 +23,17 @@ export class UsersService {
   async findOne(id: string) {
     return this.userRepository.findOneBy({ id });
   }
+  async findByEmailOrUsernae(emailOrUsername: string) {
+    if (emailOrUsername.includes('@')) {
+      return this.userRepository.findOneBy({ email: emailOrUsername });
+    } else {
+      return this.userRepository.findOneBy({ username: emailOrUsername });
+    }
+  }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     this.userRepository.update(id, updateUserDto);
-    return updateUserDto
-    
+    return updateUserDto;
   }
 
   async remove(id: string) {
